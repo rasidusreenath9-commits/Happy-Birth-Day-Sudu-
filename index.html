@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Happy Birthday Sudu 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;1,400;1,700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--rose:#ff3d7f;--pink:#ff85b4;--gold:#ffd700;--deep:#0d0010;--violet:#7b2d8b}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Lato',sans-serif;background:radial-gradient(ellipse at 20% 20%,#3a002e,#0d0010 70%);color:#fff;user-select:none}
+
+/* PARTICLES */
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.p{position:absolute;top:-60px;font-size:var(--fs);animation:pfall var(--d) linear var(--dl) infinite}
+@keyframes pfall{0%{transform:translateY(0) rotate(0);opacity:.9}100%{transform:translateY(110vh) rotate(540deg);opacity:0}}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twk var(--d) ease-in-out var(--dl) infinite}
+@keyframes twk{0%,100%{opacity:0}50%{opacity:var(--o)}}
+
+/* STAGE */
+#stage{position:relative;width:100%;height:100vh;z-index:10}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;gap:14px;opacity:0;pointer-events:none;transition:opacity .8s ease,transform .8s ease;transform:translateY(30px)}
+.screen.active{opacity:1;pointer-events:all;transform:translateY(0)}
+.screen.exit{opacity:0;transform:translateY(-40px)}
+
+/* COMMON TEXT STYLES */
+.tag{font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:var(--pink);margin-bottom:-4px}
+.script{font-family:'Dancing Script',cursive;font-weight:700;background:linear-gradient(135deg,#ffd700,#ff85b4,#ff3d7f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 15px rgba(255,61,127,.5));text-align:center}
+.italic-msg{font-family:'Playfair Display',serif;font-style:italic;color:rgba(255,220,235,.9);line-height:1.9;text-align:center;font-size:clamp(.9rem,2.2vw,1.05rem)}
+
+/* GLASS BOX */
+.glass{background:rgba(255,255,255,.05);border:1px solid rgba(255,130,180,.25);border-radius:20px;padding:26px 28px;max-width:500px;width:100%;backdrop-filter:blur(12px);box-shadow:0 0 40px rgba(255,61,127,.12)}
+
+/* BUTTON */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 34px;font-family:'Lato',sans-serif;font-weight:700;font-size:clamp(.82rem,2.5vw,.97rem);letter-spacing:.1em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#ff3d7f,#a0005a);border:none;border-radius:50px;cursor:pointer;box-shadow:0 6px 28px rgba(255,61,127,.45);transition:transform .25s,box-shadow .25s;animation:gp 2s ease-in-out infinite;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.14),transparent)}
+@keyframes gp{0%,100%{box-shadow:0 6px 28px rgba(255,61,127,.4),0 0 0 0 rgba(255,61,127,.3)}50%{box-shadow:0 8px 38px rgba(255,61,127,.7),0 0 0 10px rgba(255,61,127,0)}}
+.btn:hover{transform:translateY(-3px) scale(1.04)}
+.btn:active{transform:scale(.97)}
+.btn-ghost{background:linear-gradient(135deg,#7b2d8b,#3d0060)}
+
+/* PROGRESS DOTS */
+#dots{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:200}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.22);transition:all .4s}
+.dot.on{background:var(--rose);width:22px;border-radius:4px;box-shadow:0 0 8px var(--rose)}
+
+/* MUSIC BTN */
+#musicBtn{position:fixed;top:16px;right:16px;z-index:200;width:46px;height:46px;border-radius:50%;background:rgba(255,61,127,.18);border:1px solid rgba(255,61,127,.5);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.3rem;backdrop-filter:blur(8px);transition:all .3s}
+#musicBtn.sp{animation:mspin 3s linear infinite}
+@keyframes mspin{to{transform:rotate(360deg)}}
+
+/* SPARKS */
+.spark{position:fixed;pointer-events:none;z-index:999;font-size:1.1rem;animation:sk .85s ease forwards}
+@keyframes sk{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0)}}
+
+/* S2: WRITING SUDU */
+#s2 .write-box{position:relative;display:flex;align-items:center;justify-content:center;min-height:120px}
+#s2 .write-text{font-family:'Dancing Script',cursive;font-size:clamp(4rem,15vw,9rem);font-weight:700;color:#fff;text-shadow:0 0 30px rgba(255,133,180,0.9),0 0 60px rgba(255,61,127,0.6);letter-spacing:.05em;white-space:nowrap}
+.cursor-pen{display:inline-block;width:4px;height:clamp(4rem,12vw,7rem);background:var(--gold);border-radius:2px;margin-left:6px;animation:blink .7s step-end infinite;box-shadow:0 0 15px var(--gold)}
+
+/* S8: SLIDESHOW */
+.slideshow-container{position:relative;width:95%;max-width:500px;height:60vh;overflow:hidden;border-radius:15px;box-shadow:0 0 30px rgba(0,0,0,0.5);border:2px solid var(--pink);background:rgba(0,0,0,0.3)}
+.slide{position:absolute;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 1s ease-in-out}
+.slide.active{opacity:1}
+
+/* S9: VIDEO */
+.video-container{width:95%;max-width:500px;max-height:70vh;border-radius:15px;overflow:hidden;box-shadow:0 0 30px rgba(255,61,127,0.3);border:2px solid var(--gold);background:rgba(0,0,0,0.3)}
+video{width:100%;max-height:70vh;display:block;object-fit:contain}
+
+@media(max-width:480px){.glass{padding:18px 16px}}
+</style>
+</head>
+<body onclick="startMusicOnce()">
+
+<div id="particles"></div>
+<button id="musicBtn" title="Music">🎵</button>
+<audio id="bgMusic" loop src="Audio/WhatsApp Audio 2026-05-12 at 21.39.29.mpeg"></audio>
+
+<div id="dots"></div>
+
+<div id="stage">
+
+  <!-- S1: WELCOME -->
+  <section class="screen active" id="s1">
+    <div class="icon" style="font-size:5rem">🎁</div>
+    <p class="tag">✦ A journey for ✦</p>
+    <h1 class="script" style="font-size:clamp(3rem,10vw,6rem)">Sudu</h1>
+    <button class="btn" onclick="goTo(1)">Open My Heart &nbsp;💖</button>
+  </section>
+
+  <!-- S2: WRITING SUDU -->
+  <section class="screen" id="s2">
+    <p class="tag">✦ Just for you ✦</p>
+    <div class="write-box">
+      <span class="write-text" id="writeText"></span>
+      <span class="cursor-pen" id="penCursor"></span>
+    </div>
+    <p class="italic-msg">Every beat of my heart writes your name... 🌹</p>
+    <button class="btn" id="writeNextBtn" style="opacity:0;pointer-events:none" onclick="goTo(2)">Continue &nbsp;✨</button>
+  </section>
+
+  <!-- S3: REASONS -->
+  <section class="screen" id="s3">
+    <p class="tag">💕 Why you're amazing</p>
+    <h2 class="script" style="font-size:2.5rem">My Top Reasons</h2>
+    <div class="glass">
+      <div class="reason-item" id="r0" style="display:none"><span class="r-icon">🌸</span> Your beautiful smile</div>
+      <div class="reason-item" id="r1" style="display:none"><span class="r-icon">💫</span> Your kind soul</div>
+      <div class="reason-item" id="r2" style="display:none"><span class="r-icon">🌹</span> Your infectious laugh</div>
+      <div class="reason-item" id="r3" style="display:none"><span class="r-icon">✨</span> Your magical presence</div>
+      <div class="reason-item" id="r4" style="display:none"><span class="r-icon">💖</span> Just being you</div>
+    </div>
+    <button class="btn" onclick="goTo(3)">More Reasons &nbsp;💘</button>
+  </section>
+
+  <!-- S4: MEMORY BOX -->
+  <section class="screen" id="s4">
+    <p class="tag">🎁 My Little Secrets</p>
+    <h2 class="script" style="font-size:2.2rem">Click the Hearts</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:10px">
+      <div style="font-size:2rem;cursor:pointer" onclick="showNote('You are my world! 🌍')">❤️</div>
+      <div style="font-size:2rem;cursor:pointer" onclick="showNote('I think of you daily! 💭')">💖</div>
+      <div style="font-size:2rem;cursor:pointer" onclick="showNote('You are my dream! ✨')">💘</div>
+      <div style="font-size:2rem;cursor:pointer" onclick="showNote('Forever is you! 🌹')">💗</div>
+      <div style="font-size:2rem;cursor:pointer" onclick="showNote('My true love! 💞')">💓</div>
+      <div style="font-size:2rem;cursor:pointer" onclick="showNote('My everything! 💝')">❤️</div>
+    </div>
+    <div id="memory-note" class="italic-msg" style="min-height:60px;margin-top:15px;color:var(--gold);font-weight:bold">Tap a heart...</div>
+    <button class="btn" onclick="goTo(4)">Next Page &nbsp;💌</button>
+  </section>
+
+  <!-- S5: LETTER -->
+  <section class="screen" id="s5">
+    <div class="icon" style="font-size:3rem">💌</div>
+    <div class="glass">
+      <p class="script" style="font-size:2rem;margin-bottom:10px">To my Sudu,</p>
+      <p class="italic-msg">
+        Words can't describe how much you mean to me.<br/>
+        Every moment with you is a treasure I keep forever.<br/>
+        You are the light that guides me home. 🌹
+      </p>
+    </div>
+    <button class="btn" onclick="goTo(5)">Gift 1 &nbsp;🌸</button>
+  </section>
+
+  <!-- S6: VIRTUAL BOUQUET -->
+  <section class="screen" id="s6">
+    <p class="tag">💐 Flowers for you</p>
+    <h2 class="script" style="font-size:2.5rem">Tap to bloom</h2>
+    <div id="bouquet-area" style="position:relative;width:100%;height:180px;display:flex;justify-content:center;align-items:flex-end"></div>
+    <p class="italic-msg">A garden of love for you! 🌷</p>
+    <button class="btn" onclick="goTo(6)">Gift 2 &nbsp;🌟</button>
+  </section>
+
+  <!-- S7: WISHES -->
+  <section class="screen" id="s7">
+    <p class="tag">🌟 For you</p>
+    <h2 class="script" style="font-size:2.5rem">My Wishes</h2>
+    <ul id="wishList" style="list-style:none;text-align:center">
+      <li id="w0" style="display:none;margin:10px">🌺 Endless Joy</li>
+      <li id="w1" style="display:none;margin:10px">💫 Bright Future</li>
+      <li id="w2" style="display:none;margin:10px">🦋 Pure Love</li>
+      <li id="w3" style="display:none;margin:10px">🌙 Sweet Dreams</li>
+    </ul>
+    <button class="btn" onclick="goTo(7)">Memories &nbsp;📸</button>
+  </section>
+
+  <!-- S8: IMAGES SLIDESHOW -->
+  <section class="screen" id="s8">
+    <p class="tag">📸 Our Moments</p>
+    <div class="slideshow-container" id="slideshow">
+      <img src="Image/WhatsApp Image 2026-05-12 at 21.42.58.jpeg" class="slide active">
+      <img src="Image/WhatsApp Image 2026-05-12 at 21.43.12.jpeg" class="slide">
+      <img src="Image/WhatsApp Image 2026-05-12 at 21.54.06.jpeg" class="slide">
+      <img src="Image/WhatsApp Image 2026-05-12 at 21.56.15.jpeg" class="slide">
+      <img src="Image/WhatsApp Image 2026-05-12 at 21.56.16.jpeg" class="slide">
+      <img src="Image/WhatsApp Image 2026-05-12 at 22.15.08.jpeg" class="slide">
+      <img src="Image/WhatsApp Image 2026-05-12 at 22.15.09 (1).jpeg" class="slide">
+      <img src="Image/WhatsApp Image 2026-05-12 at 22.15.09.jpeg" class="slide">
+      <img src="Image/WhatsApp Image 2026-05-12 at 22.15.10.jpeg" class="slide">
+    </div>
+    <p class="italic-msg" style="margin-top:10px">Watching us grow together... ❤️</p>
+    <button class="btn" onclick="goTo(8)">A special clip &nbsp;🎬</button>
+  </section>
+
+  <!-- S9: VIDEO -->
+  <section class="screen" id="s9">
+    <p class="tag">🎬 Just for you</p>
+    <div class="video-container">
+      <video id="hbdVideo" controls>
+        <source src="v/WhatsApp Video 2026-05-12 at 21.43.31.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p class="italic-msg" style="margin-top:15px">
+      "Every frame is a memory, every second is love." 🌹
+    </p>
+    <button class="btn" onclick="goTo(9)">Final Message &nbsp;🎆</button>
+  </section>
+
+  <!-- S10: FINALE -->
+  <section class="screen" id="s10">
+    <div class="icon" style="font-size:3rem">🎆</div>
+    <h1 class="script" style="font-size:4rem">Happy Birthday</h1>
+    <p class="script" style="font-size:5rem;color:var(--gold)">Sudu 💖</p>
+    <div style="font-size:2rem;animation:hb 1.2s infinite;margin:15px">💕 💖 💕</div>
+    <p class="italic-msg">You are my always and forever. 🌹✨</p>
+    <button class="btn btn-ghost" onclick="goTo(0)">I LOVE YOU &nbsp;❤️</button>
+  </section>
+
+</div>
+
+<script>
+const TOTAL = 10;
+const screens = Array.from({length:TOTAL},(_,i)=>document.getElementById('s'+(i+1)));
+const dotsEl = document.getElementById('dots');
+let current = 0;
+
+for(let i=0;i<TOTAL;i++){
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' on':'');
+  dotsEl.appendChild(d);
+}
+const dots = Array.from(dotsEl.children);
+
+function goTo(next){
+  screens[current].classList.remove('active');
+  screens[current].classList.add('exit');
+  
+  // Pause video if moving away from S9
+  if(current === 8) document.getElementById('hbdVideo').pause();
+
+  setTimeout(()=>{
+    screens.forEach(s=>s.classList.remove('exit'));
+  },800);
+
+  current = next;
+  screens[current].classList.add('active');
+  dots.forEach((d,i)=>d.classList.toggle('on',i===current));
+  
+  onEnter(current);
+}
+
+function onEnter(i){
+  if(i===1) startWriting();
+  if(i===2) revealReasons();
+  if(i===6) revealWishes();
+  if(i===7) startSlideshow();
+}
+
+/* WRITING */
+const WORD='Sudu';
+function startWriting(){
+  const el=document.getElementById('writeText');
+  const btn=document.getElementById('writeNextBtn');
+  el.textContent=''; btn.style.opacity='0'; btn.style.pointerEvents='none';
+  let idx=0;
+  let timer=setInterval(()=>{
+    if(idx<WORD.length){
+      el.textContent+=WORD[idx]; idx++;
+    } else {
+      clearInterval(timer);
+      setTimeout(()=>{btn.style.opacity='1';btn.style.pointerEvents='all'},500);
+    }
+  },400);
+}
+
+/* REASONS */
+function revealReasons(){
+  for(let i=0;i<5;i++){
+    const el=document.getElementById('r'+i);
+    el.style.display='block';
+    el.style.opacity='0';
+    setTimeout(()=>{
+        el.style.transition='opacity 0.5s';
+        el.style.opacity='1';
+    },300+i*200);
+  }
+}
+
+/* MEMORY NOTE */
+function showNote(msg){
+  document.getElementById('memory-note').textContent = msg;
+}
+
+/* BOUQUET */
+const bouquetArea = document.getElementById('bouquet-area');
+const FLW=['🌷','🌸','🌹','🌺','🌻','🌼'];
+bouquetArea.onclick=(e)=>{
+  const f=document.createElement('div');
+  f.style.position='absolute';
+  f.style.bottom='0';
+  f.style.fontSize='2rem';
+  f.textContent=FLW[Math.floor(Math.random()*FLW.length)];
+  f.style.left=Math.random()*80+10+'%';
+  bouquetArea.appendChild(f);
+};
+
+/* WISHES */
+function revealWishes(){
+  for(let i=0;i<4;i++){
+    const el=document.getElementById('w'+i);
+    el.style.display='block';
+    el.style.opacity='0';
+    setTimeout(()=>{
+        el.style.transition='opacity 0.5s';
+        el.style.opacity='1';
+    },300+i*200);
+  }
+}
+
+/* SLIDESHOW */
+let slideIdx = 0;
+function startSlideshow(){
+    const slides = document.querySelectorAll('.slide');
+    setInterval(()=>{
+        slides[slideIdx].classList.remove('active');
+        slideIdx = (slideIdx + 1) % slides.length;
+        slides[slideIdx].classList.add('active');
+    }, 2500);
+}
+
+/* PARTICLES */
+const EMOJIS=['💖','💕','🌹','✨','💫','🌸'];
+const pl=document.getElementById('particles');
+for(let i=0;i<80;i++){
+  const el=document.createElement('div');
+  el.className='p';
+  el.textContent=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+  el.style.cssText=`left:${Math.random()*100}%;--d:${(Math.random()*8+5).toFixed(1)}s;--dl:-${(Math.random()*10).toFixed(1)}s;--fs:${(Math.random()*15+12).toFixed(0)}px`;
+  pl.appendChild(el);
+}
+
+/* MUSIC */
+const mBtn=document.getElementById('musicBtn');
+const audio=document.getElementById('bgMusic');
+let mPlay=false;
+
+function startMusicOnce() {
+    if(!mPlay) {
+        mPlay=true;
+        audio.volume=.6;
+        audio.play().catch(()=>{});
+        mBtn.textContent='🎶';
+        mBtn.classList.add('sp');
+    }
+}
+
+mBtn.onclick=(e)=>{
+  e.stopPropagation();
+  mPlay=!mPlay;
+  if(mPlay){audio.play();mBtn.textContent='🎶';mBtn.classList.add('sp')}
+  else{audio.pause();mBtn.textContent='🎵';mBtn.classList.remove('sp')}
+};
+
+/* SPARKS */
+document.addEventListener('click',e=>{
+  if(e.target.closest('button'))return;
+  for(let i=0;i<6;i++){
+    const sp=document.createElement('div');
+    sp.className='spark';
+    sp.textContent=['💖','✨','🌸'][Math.floor(Math.random()*3)];
+    const a=Math.random()*360,d=60+Math.random()*80;
+    sp.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;--tx:${Math.cos(a*Math.PI/180)*d}px;--ty:${Math.sin(a*Math.PI/180)*d}px;animation-delay:${i*.05}s`;
+    document.body.appendChild(sp);
+    setTimeout(()=>sp.remove(),900);
+  }
+});
+</script>
+</body>
+</html>
